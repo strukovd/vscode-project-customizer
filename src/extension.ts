@@ -1,26 +1,38 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 
-// This method is called when your extension is activated
-// Your extension is activated the very first time the command is executed
-export function activate(context: vscode.ExtensionContext) {
-
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "project-customizer" is now active!');
-
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with registerCommand
-	// The commandId parameter must match the command field in package.json
-	const disposable = vscode.commands.registerCommand('project-customizer.helloWorld', () => {
-		// The code you place here will be executed every time your command is executed
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from project-customizer!');
-	});
-
-	context.subscriptions.push(disposable);
+// Функция для применения настроек
+function applySettings(settings: vscode.WorkspaceConfiguration) {
+    vscode.workspace.getConfiguration().update('workbench.colorCustomizations', settings, vscode.ConfigurationTarget.Global);
 }
 
-// This method is called when your extension is deactivated
+// Функция, вызываемая при активации расширения
+export function activate(context: vscode.ExtensionContext) {
+
+	console.log('Расширение активировано');
+    vscode.window.showInformationMessage('Project Customizer Activated');
+
+
+
+    // Слушатель события открытия рабочей области
+    // vscode.workspace.onDidChangeWorkspaceFolders((event) => {
+    //     const workspaceFolder = event.added[0];
+    //     if (workspaceFolder) {
+    //         const workspacePath = workspaceFolder.uri.fsPath;
+    //         if (true ||workspacePath === '/home/user') {
+    //             const customSettings = {
+    //                 "workbench.colorCustomizations": {
+    //                     // "editor.background": "#282A36",
+    //                     "tab.activeBackground": "#282A36",
+    //                     "activityBar.activeBorder": "#0bbb0b86",
+    //                     "activityBar.foreground": "#959dca",
+    //                     "activityBar.activeBackground": "#282A36"
+    //                 },
+    //             } as any;
+	// 			vscode.workspace.getConfiguration().update('workbench.colorCustomizations', customSettings['workbench.colorCustomizations'], vscode.ConfigurationTarget.Global);
+    //             // applySettings(customSettings);
+    //         }
+    //     }
+    // });
+}
+
 export function deactivate() {}
